@@ -6,25 +6,28 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     private float currentTime;
-    private float timer = 300;
+    [SerializeField] private float timer = 40;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject ending;
+    [SerializeField] private GameObject outOfTime;
+    [SerializeField] private GameObject black;
+    [SerializeField] private GameObject beginning;
 
     OutlineOnLook outline;
 
     [SerializeField] private GameObject outdoorObjects;
     [SerializeField] private GameObject indoorObjects;
 
-    private bool gotDressed = false;
-    private bool brushedTeeth = false;
-    private bool ateFood = false;
-    private bool wateredPlant = false;
-    private bool savedCat = false;
-    private bool fixedLight = false;
-    private bool foodEaten = false;
-    private bool flowersPicked = false;
-    private bool showered = false;
+    public bool gotDressed = false;
+    public bool brushedTeeth = false;
+    public bool wateredPlant = false;
+    public bool savedCat = false;
+    public bool fixedLight = false;
+    public bool foodEaten = false;
+    public bool flowersPicked = false;
+    public bool showered = false;
     public bool gotWater = false;
     public bool gotLightbulb = false;
     public bool gotSoap = false;
@@ -33,7 +36,7 @@ public class LevelManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentTime = Time.deltaTime / 10;
+        currentTime = Time.deltaTime/ 20; // / 10
     }
 
     // Update is called once per frame
@@ -44,7 +47,14 @@ public class LevelManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            //END THE GAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            outOfTime.SetActive(true);
+            black.SetActive(true);
+        }
+        if (timer <= 35 && beginning.activeInHierarchy)
+        {
+            beginning.SetActive(false);
         }
     }
 
@@ -114,7 +124,7 @@ public class LevelManager : MonoBehaviour
 
     public void OpenCafeDoor()
     {
-        //END THE GAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        ending.SetActive(true);
     }
 
     public void FixedLight()
