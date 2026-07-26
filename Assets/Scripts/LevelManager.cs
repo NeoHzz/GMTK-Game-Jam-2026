@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     private float timer = 300;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private GameObject player;
 
     OutlineOnLook outline;
 
@@ -17,8 +18,11 @@ public class LevelManager : MonoBehaviour
     private bool ateFood = false;
     private bool wateredPlant = false;
     private bool savedCat = false;
+    private bool fixedLight = false;
+    private bool foodEaten = false;
+    private bool flowersPicked = false;
     public bool gotWater = false;
-    private bool gotLightbulb = false;
+    public bool gotLightbulb = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -85,5 +89,41 @@ public class LevelManager : MonoBehaviour
         gotWater = true;
         dialogueText.text = "Let me get a glass of water";
         Debug.Log(message: ("Got water"));
+    }
+    public void OpenInsideDoor()
+    {
+        player.transform.position = new Vector3(24.42f, 1.41f, 10.75f);
+    }
+    public void OpenOutsideDoor()
+    {
+        player.transform.position = new Vector3(-15.28f, 1.41f, 46.85f);
+    }
+
+    public void OpenCafeDoor()
+    {
+
+    }
+
+    public void FixedLight()
+    {
+        if (!gotLightbulb)
+            dialogueText.text = "I could probably fix this with a light bulb";
+        else
+        {
+            fixedLight = true;
+            Debug.Log(message: ("Fixed light"));
+        }
+    }
+
+    public void EatFood()
+    {
+        foodEaten = true;
+        Debug.Log(message: ("Ate food"));
+    }
+
+    public void PickFlowers()
+    {
+        flowersPicked = true;
+        Debug.Log(message: ("Picked flowers"));
     }
 }

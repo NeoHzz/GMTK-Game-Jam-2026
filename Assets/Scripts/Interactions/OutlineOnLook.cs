@@ -20,7 +20,10 @@ public class OutlineOnLook : MonoBehaviour
     {
         if (this.gameObject.name == "Plant" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotWater == false)
             return;
+        else if (this.gameObject.name == "StreetLamp" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotLightbulb == false)
+            return;
         else
             Destroy(this);
     }
+
 }
