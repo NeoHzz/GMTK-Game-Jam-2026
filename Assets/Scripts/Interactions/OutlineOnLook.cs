@@ -22,6 +22,8 @@ public class OutlineOnLook : MonoBehaviour
             return;
         else if (this.gameObject.name == "StreetLamp" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotLightbulb == false)
             return;
+        else if (this.gameObject.name == "Bathtub" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotSoap == false)
+            return;
         else
             Destroy(this);
     }

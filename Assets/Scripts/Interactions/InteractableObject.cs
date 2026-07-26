@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public class InteractableObject : MonoBehaviour, InterfaceInteractable
 {
     [SerializeField] private UnityEvent _onInteract;
-    [SerializeField] private GameObject levelManager;
 
     UnityEvent InterfaceInteractable.onInteract
     {
@@ -20,6 +19,8 @@ public class InteractableObject : MonoBehaviour, InterfaceInteractable
         if (this.gameObject.name == "Plant" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotWater == false)
             return;
         else if (this.gameObject.name == "StreetLamp" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotLightbulb == false)
+            return;
+        else if (this.gameObject.name == "Bathtub" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotSoap == false)
             return;
         else
             Destroy(this);
