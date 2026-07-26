@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,43 @@ public class Interaction : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     private PlayerInput playerInput;
     private Transform _transform;
+    [SerializeField] private GameObject interactText;
+
+    OutlineOnLook outline;
 
     private void Awake()
     {
         _transform = transform;
         playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Update()
+    {
+        if (Physics.Raycast(_transform.position + (Vector3.up * 0.3f) + (_transform.forward * 0.2f), _transform.forward, out var hit, 1.5f, interactableLayer))
+        {
+            interactText.SetActive(true);
+
+            if (hit.transform.TryGetComponent(out OutlineOnLook outline))
+            {
+                if (this.outline != outline)
+                    this.outline?.Outline(false);
+
+                this.outline = outline;
+                outline.Outline(true);
+            }
+            else
+            {
+                this.outline?.Outline(false);
+                this.outline = default;
+            }
+        }
+        else
+        {
+            outline?.Outline(false);
+            outline = default;
+
+            interactText.SetActive(false);
+        }
     }
 
     private void OnEnable()
