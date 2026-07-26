@@ -11,6 +11,7 @@ public class Interaction : MonoBehaviour
     [SerializeField] private GameObject interactText;
 
     OutlineOnLook outline;
+    public Camera cam;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class Interaction : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(_transform.position + (Vector3.up * 0.3f) + (_transform.forward * 0.2f), _transform.forward, out var hit, 1.5f, interactableLayer))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, 3f, interactableLayer) && hit.transform.TryGetComponent(out InterfaceInteractable interactable))
         {
             interactText.SetActive(true);
 
@@ -62,7 +63,8 @@ public class Interaction : MonoBehaviour
     private void WhenInteract(InputAction.CallbackContext context)
     {
         //(starting point) position of player + offset by 1 unit up + offset forward so it doesn't collide with player, (direction) forward, reference to hit, length of ray, layer mask
-        if (!Physics.Raycast(_transform.position + (Vector3.up * 0.3f) + (_transform.forward * 0.2f), _transform.forward, out var hit, 1.5f, interactableLayer))
+        //if (!Physics.Raycast(_transform.position + (Vector3.up * 0.3f) + (_transform.forward * 0.2f), _transform.forward, out var hit, 3f, interactableLayer))
+        if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, 3f, interactableLayer))
             return;
 
         //checks if we can get the component from the item

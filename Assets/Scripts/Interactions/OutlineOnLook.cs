@@ -15,4 +15,12 @@ public class OutlineOnLook : MonoBehaviour
         Debug.Log(message: (show));
         mat.SetFloat("_ShowOutline", show? 1 : 0);
     }
+
+    public void BeDestroyed()
+    {
+        if (this.gameObject.name == "Plant" && GameObject.Find("LevelManager").GetComponent<LevelManager>().gotWater == false)
+            return;
+        else
+            Destroy(this);
+    }
 }
